@@ -1,9 +1,16 @@
 package com.example.mayukh.instagramclone_1;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 public class SocialMediaActivity extends AppCompatActivity {
+   private Toolbar toolbar;
+   private ViewPager viewPager;
+   private TabLayout tabLayout;
+   private TabAdapter tabAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -11,5 +18,17 @@ public class SocialMediaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_social_media);
 
         setTitle("Social Media App!!!");
+
+        toolbar = findViewById(R.id.myToolbar);
+        setSupportActionBar(toolbar);
+
+        viewPager = findViewById(R.id.viewPager);
+        tabAdapter = new TabAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(tabAdapter);
+
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager,false);
+
+
     }
 }
