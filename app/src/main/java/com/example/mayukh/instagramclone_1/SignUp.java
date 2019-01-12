@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,6 +33,17 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         btnLogIn = findViewById(R.id.btnLogIn);
         btnSignUp = findViewById(R.id.btnSignUp);
 
+        btnSignUp.setOnKeyListener(new View.OnKeyListener(){
+
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
+                    onClick(btnSignUp);
+                }
+                return false;
+            }
+        });
+
         btnSignUp.setOnClickListener(SignUp.this);
         btnLogIn.setOnClickListener(SignUp.this);
         if(ParseUser.getCurrentUser()!=null){
@@ -45,6 +58,14 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         switch (buttonSignLogin.getId()){
             case R.id.btnSignUp:
+                if(edtUserName.getText().toString().equals("") ||
+                        edtPassword.getText().toString().equals("") ||
+                        edtEmail.getText().toString().equals(""))
+                {
+                    FancyToast.makeText(SignUp.this,"Username/Password/Email Id required",FancyToast.LENGTH_LONG,
+                            FancyToast.INFO,true).show();
+                }
+                else
                 signUpUser();
                 break;
             case R.id.btnLogIn:
@@ -92,6 +113,15 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
 
 
+    }
+    public void rootLayoutTapped(View view){
+        try {
+            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
 

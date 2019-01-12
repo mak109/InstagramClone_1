@@ -3,6 +3,7 @@ package com.example.mayukh.instagramclone_1;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -29,6 +30,11 @@ public class LogIn extends AppCompatActivity {
         btnLogInActivity.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(edtLogInEmail.getText().toString().equals("") || edtLogInPassword.getText().toString().equals("")){
+                    FancyToast.makeText(LogIn.this,"Password/Email Id required",FancyToast.LENGTH_LONG,
+                            FancyToast.INFO,true).show();
+                }
+                else
                 logIn();
             }
         });
@@ -69,6 +75,15 @@ public class LogIn extends AppCompatActivity {
 
 
 
+    }
+    public void rootLayoutloginTapped(View view){
+        try {
+            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
 
