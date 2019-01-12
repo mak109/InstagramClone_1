@@ -1,5 +1,6 @@
 package com.example.mayukh.instagramclone_1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,7 +48,8 @@ public class LogIn extends AppCompatActivity {
             }
         });
         if(ParseUser.getCurrentUser()!=null){
-            ParseUser.getCurrentUser().logOut();
+            //ParseUser.getCurrentUser().logOut();
+            transitionToSocialMediaActivity();
         }
     }
 
@@ -62,7 +64,7 @@ public class LogIn extends AppCompatActivity {
                 if(user!=null && e==null){
                     FancyToast.makeText(LogIn.this,user.get("username")+
                             " is successfully logged in", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
-
+                    transitionToSocialMediaActivity();
                 }
                 else{
                     FancyToast.makeText(LogIn.this,e.getMessage(),FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
@@ -84,6 +86,11 @@ public class LogIn extends AppCompatActivity {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+    private void transitionToSocialMediaActivity(){
+        Intent intent = new Intent(LogIn.this,SocialMediaActivity.class);
+        startActivity(intent);
+
     }
 }
 
