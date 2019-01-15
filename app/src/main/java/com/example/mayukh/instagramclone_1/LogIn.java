@@ -43,8 +43,8 @@ public class LogIn extends AppCompatActivity {
         btnSignUpnew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParseUser.logOut();
-                finish();
+                Intent intent = new Intent(LogIn.this,SignUp.class);
+                startActivity(intent);
             }
         });
         if(ParseUser.getCurrentUser()!=null){
@@ -90,6 +90,7 @@ public class LogIn extends AppCompatActivity {
     private void transitionToSocialMediaActivity(){
         Intent intent = new Intent(LogIn.this,SocialMediaActivity.class);
         startActivity(intent);
+        finish();
 
     }
 }
